@@ -23,11 +23,14 @@ app.use(body_parser.urlencoded({
 app.use( (req, res, next)=>{
     console.log(req.method, ' ', req.path);
     next();
-} ); //get api/materials
+} ); //GET api/materials
+
+// GET /index.html
+// --> /public/index.html
+app.use("/", express.static("public"));
 
 // RESTful api
 // CRUD operations
-
 
 // create
 app.post("/api/material", material_controller.api_post_material);
@@ -38,6 +41,9 @@ app.get("/api/materials", material_controller.api_get_materials);
 
 
 // update
+//app.patch korvaa vain tietyt kentät
+//app.put korvaa kaikki kentät
+app.put("/api/material/:id", material_controller.api_put_material);
 
 // delete
 app.delete("/api/material/:id", material_controller.api_delete_material);
